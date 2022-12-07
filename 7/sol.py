@@ -12,9 +12,10 @@ def append_size(directory_tree):
 
 def calculate_total_size(directory_tree, size_array):
     final_size = 0
+    if directory_tree['total_size']:
+        size_array.append(directory_tree['total_size'])
     if directory_tree['total_size'] <= 100000:
         final_size += directory_tree['total_size']
-        size_array.append(directory_tree['total_size'])
     for k, v in directory_tree.items():
         if isinstance(v, dict):
             final_size += calculate_total_size(v, size_array)
