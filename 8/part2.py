@@ -28,7 +28,7 @@ with open('input', 'r') as file:
         for j in range(cols):
             max_scene = max(max_scene, count_scene(tree[i][j], tree[i][:j],
                                                    tree[i][j+1:],
-                                                   list(list(zip(*tree))[j][i+1:]),
-                                                   list(list(zip(*tree))[j][:i])))
+                                                   list(list(zip(*tree))[j][:i]),
+                                                   list(list(zip(*tree))[j][i+1:])))
     print(max_scene)
 
