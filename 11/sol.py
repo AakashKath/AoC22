@@ -1,3 +1,5 @@
+from math import prod
+
 def execute_operation(operation, item):
     if operation[1] == '*':
         if operation[2] == 'old':
@@ -6,10 +8,11 @@ def execute_operation(operation, item):
     return item+int(operation[2])
 
 def execute_round(item_list, operation, condition, true_move, false_move,
-                  inspect_count, monkey_no):
+                  inspect_count, cap,  monkey_no):
     for item in item_list[monkey_no]:
         item = execute_operation(operation[monkey_no], item)
-        item = item//3
+        #item = item//3
+        item = item%cap
         if item%condition[monkey_no] == 0:
             item_list[true_move[monkey_no]].append(item)
         else:
@@ -34,12 +37,14 @@ with open('input', 'r') as file:
         false_move.append(int(x[7*i+5].split('\n')[0].split(' ')[-1]))
         inspect_count.append(0)
 
-    for i in range(20):
-        for i in range(8):
+    cap = prod(condition)
+
+    for i in range(10000):
+        for j in range(8):
             item_list, inspect_count = execute_round(item_list, operation,
                                                      condition, true_move,
                                                      false_move, inspect_count,
-                                                     i)
+                                                     cap, j)
     i1, i2 = sorted(inspect_count, reverse=True)[:2]
     print(i1*i2)
 
